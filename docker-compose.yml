@@ -1,0 +1,25 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  # Servicio del Backend
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      # Esto asegura que la base de datos y el conocimiento persistan
+      - ./backend/vector_store:/app/vector_store
+      - ./backend/tickets.db:/app/tickets.db
+    # Permite que el contenedor se comunique con Ollama en tu máquina
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # Servicio del Frontend
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    # Le dice a Docker que inicie el backend antes que el frontend
+    depends_on:
+      - backend

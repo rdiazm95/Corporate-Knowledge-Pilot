@@ -1,0 +1,39 @@
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Archivos de configuración de IDE
+.vscode/
+.idea/
+
+# --- Python / Backend ---
+
+# Entorno virtual
+.venv/
+venv/
+env/
+
+# Caché de Python
+__pycache__/
+*.pyc
+
+# Bases de datos locales (¡MUY IMPORTANTE!)
+# No queremos subir las bases de datos generadas al repositorio
+tickets.db
+vector_store/
+
+# --- Node.js / Frontend ---
+
+# Carpeta de dependencias (ocupa mucho y se reinstala con `npm install`)
+node_modules/
+
+# Archivos de build (se generan automáticamente)
+dist/
+
+# Archivos de entorno local (pueden contener claves secretas)
+.env.local
+.env.*.local
