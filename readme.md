@@ -2,7 +2,7 @@
 
 Asistente de IA conversacional para entornos corporativos, diseñado para responder preguntas basadas en una base de conocimiento interna y guiar al usuario a través de un flujo de solución de problemas antes de crear tickets de soporte.
 
-[![Estado de la Construcción](https://github.com/rdiazm95/tu-repositorio/actions/workflows/ci.yaml/badge.svg)](https://github.com/tu-usuario/tu-repositorio/actions/workflows/ci.yaml)
+[![Estado de la Construcción](https://github.com/rdiazm95/Corporate-Knowledge-Pilot/actions/workflows/ci.yaml/badge.svg)](https://github.com/rdiazm95/Corporate-Knowledge-Pilot/actions/workflows/ci.yaml)
 [![Licencia: MIT](https://img.shields.io/badge/Licencia-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## 🌟 Demostración
