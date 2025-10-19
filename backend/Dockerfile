@@ -15,5 +15,7 @@ COPY . .
 # Ejecutamos el script de ingesta para crear la 'vector_store' DENTRO de la imagen
 RUN python ingest.py
 
+RUN python database_setup.py
+
 # El comando para iniciar la API (esto no cambia)
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
