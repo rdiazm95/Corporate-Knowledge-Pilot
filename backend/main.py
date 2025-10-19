@@ -1,11 +1,18 @@
 # backend/main.py
 import sqlite3
 import re
+import sys 
+import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import Literal
 
+# --- AÑADIDO: Importaciones para Monitorización ---
+from prometheus_fastapi_instrumentator import Instrumentator
+from loguru import logger
+
+# LangChain
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_ollama.llms import OllamaLLM
@@ -13,6 +20,22 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 from langchain.chains import RetrievalQA
 from langchain_core.runnables import RunnableBranch, RunnableLambda, RunnablePassthrough
+
+# --- AÑADIDO: CONFIGURACIÓN DE LOGGING ESTRUCTURADO ---
+logger.remove()
+logger.add(sys.stdout, serialize=True, enqueue=True)
+
+class InterceptHandler(logging.Handler):
+    def emit(self, record):
+        try:
+            level = logger.level(record.levelname).name
+        except ValueError:
+            level = record.levelno
+        logger.log(level, record.getMessage())
+
+logging.basicConfig(handlers=[InterceptHandler()], level=0, force=True)
+logging.getLogger("uvicorn").handlers = [InterceptHandler()]
+logging.getLogger("uvicorn.access").handlers = [InterceptHandler()]
 
 
 # --- CONFIGURACIÓN Y MODELOS ---
@@ -23,6 +46,10 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"],
 )
+
+# --- AÑADIDO: INSTRUMENTACIÓN DE PROMETHEUS ---
+Instrumentator().instrument(app).expose(app)
+
 
 llm = OllamaLLM(model="llama3.1:8b", temperature=0, base_url="http://host.docker.internal:11434")
 embeddings = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-large")
@@ -110,5 +137,6 @@ def ask_question(question: str):
         return {"answer": answer, "follow_up_required": follow_up}
 
     except Exception as e:
-        print(f"Error en el endpoint /ask: {e}")
+        # AÑADIDO: Usamos logger en lugar de print para un registro estructurado
+        logger.error(f"Error en el endpoint /ask: {e}")
         return {"answer": "Lo siento, ha ocurrido un error.", "follow_up_required": False}

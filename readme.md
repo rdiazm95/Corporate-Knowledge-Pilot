@@ -136,11 +136,11 @@ kubectl apply -f kubernetes/manifests.yaml
 ### 🗺️ Hoja de Ruta (Próximos Pasos)
 Este proyecto seguirá creciendo. Las siguientes fases planeadas son:
 
-- 🧱 **Terraform:** Escribir código de Infraestructura como Código (IaC) para provisionar un clúster de Kubernetes en la nube (ej. Azure AKS).
+- 🧱[ ] **Terraform:** Escribir código de Infraestructura como Código (IaC) para provisionar un clúster de Kubernetes en la nube (ej. Azure     AKS).
 
-- 📊 **Monitorización:** Integrar Prometheus y Grafana para monitorizar la salud y el rendimiento de la aplicación.
+- 📊[x] **Monitorización:** Integrar Prometheus y Grafana para monitorizar la salud y el rendimiento de la aplicación.
 
-- 🔒 **Seguridad:** Implementar un sistema de autenticación (conceptual, con OAuth2) y mejorar los bucles de feedback de usuario para el reentrenamiento del modelo.
+- 🔒[ ] **Seguridad:** Implementar un sistema de autenticación (conceptual, con OAuth2) y mejorar los bucles de feedback de usuario para el reentrenamiento del modelo.
 
 ---
 
